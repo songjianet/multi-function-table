@@ -8,12 +8,10 @@
     "url": "https://github.com/songjianet/multi-function-table"
   },
   "license": "MIT",
-  "private": true,
   "main": "./dist/multi-function-table.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
-    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules",
-    "build:components": "vue-cli-service build --dest lib --target lib src/index.js"
+    "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
   "dependencies": {
     "babel-plugin-component": "^1.1.1",

@@ -1,4 +1,4 @@
-import Index from "./src/components/index.vue"
+import Index from "./src/lib/index.vue"
 
 const components = [Index]
 let main = {}

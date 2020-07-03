@@ -5,7 +5,7 @@
 </template>
 
 <script>
-  import Index from './components/index'
+  import Index from './lib/index'
   export default {
     data(){
       return {
