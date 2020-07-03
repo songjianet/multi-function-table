@@ -2,5 +2,14 @@
   "presets": [
     ["env", { "modules": false }],
     "stage-3"
+  ],
+  "plugins": [
+    [
+      "component",
+      {
+        "libraryName": "element-ui",
+        "styleLibraryName": "theme-chalk"
+      }
+    ]
   ]
 }
