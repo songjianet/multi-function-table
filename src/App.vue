@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Index :propData='initData'/>
+    <Index/>
   </div>
 </template>
 
@@ -8,9 +8,7 @@
   import Index from './lib/index'
   export default {
     data(){
-      return {
-        initData: 'hello 你好'
-      }
+      return {}
     },
     components: {
       Index
