@@ -1,14 +1,14 @@
 {
   "name": "multi-function-table",
   "description": "A multifunctional table based on secondary development of element UI.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "songjianet <1778651752@qq.com>",
   "repository": {
     "type": "git",
     "url": "https://github.com/songjianet/multi-function-table"
   },
   "license": "MIT",
-  "main": "./dist/multi-function-table.js",
+  "main": "dist/multi-function-table.js",
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
