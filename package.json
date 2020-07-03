@@ -3,6 +3,10 @@
   "description": "A Vue.js project",
   "version": "1.0.0",
   "author": "songjianet <1778651752@qq.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/songjianet/multi-function-table"
+  },
   "license": "MIT",
   "private": true,
   "main": "./dist/multi-function-table.js",
