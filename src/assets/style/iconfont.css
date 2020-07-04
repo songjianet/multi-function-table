@@ -1,0 +1,25 @@
+@font-face {font-family: "iconfont";
+  src: url('../icon/iconfont.eot?t=1593838740903'); /* IE9 */
+  src: url('../icon/iconfont.eot?t=1593838740903#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('data:application/x-font-woff2;charset=utf-8;base64,d09GMgABAAAAAARIAAsAAAAACIQAAAP6AAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHEIGVgCDBgqEaIQSATYCJAMMCwgABCAFhG0HORtbB8guIScbeqSD6dQr8F4TvTNYEmzQxrcLFzzRfu2N/L35u+dYgiQayR6KaIRIpXolaauWAv0yoe2QnV7NKfQnU22tUWlunYQ1/d+5/LlxurEweXPADgjSFBz9lpNCOnAzaqfElJ2d0kdAnPoZkygcyoVbH2NQr1aQAhWEdgMEMOhtjSrGZxVc/T+X07urxOcHymWuZVEvwGgCBTTGtgUWhiWMDWMXl3EcArIFNEKdy3sO45w2ToBc09iD8ZiKl2SLIFLO0hh5kojwRQ/g1f29/NUFqCZCm3p4uQjh+AX+GiLP9dnKRmD3ZwCYVWBgE8Ahm1zTpSE/tElElkTD5cmJE9qX97/ismRB0v/wQAkkRRN1EWE1rJgA04DaMzbk7DX75EYnMAfwAyomTM/oGK4dqahIte4RhiBcoYefd/d34Xp15X597XF5Gdw5Pdw0NzHQ6FlNMJw1qyE2H+P7r5HuLRfem5doj6YrCrurq0+9S3qjMep2LVqnGs9cwDi1hXzVxkstk741t46Gwcn55qGp4Oqewt6a/qK+DCdOuEnohoyuUUXKub0sG3+PqQuDHJsCaEWW4XZqGuT8jc7kIw7G9CUk/MU1BK+fBYWznjGUz964AONgUbguh9ZJwvlMWISm89vRQtGJ/88JUZ1uMyxeeAcjyzf7ccu66Lu5LR4YbDghtw3HXvbRVhRL4A7u9kgj0O5ek6WEf//5e0oegHTcNDhIYROgdQd1yLh79wHzsNsNGanbr0OCVwrXLNs0/d+P6gc0HVnoAh5f7zz+zYs+35rqhfUGF2NwbnJnyVXIldrtyiW/2zfe76ur8fHugDtwkzc8HJ9AIicmBM1Zje8BgrjhPfT+hs8XzIXd8viG+pnoj4kJBGJ84qNRJavkIyurz7/1yrcT+w+9gNmFfhX/axUQ5OmGBk3NYAeA2vqNCkBly2b4Bwzkc4IcDFDY/4viYt0fgc52HZWDeulAUNRmv292zQqXuZraYpFlstSouTJ7N5VkmXfrYjD21N4yA4QGESwbguqYBxMWUSdsQqPYgiTsQLbBYnUxJdkQiVtgXRkAMTQMqu8XzNAh6oRHaMx6g2SYQXYeLGxZLHdDzxr0NIYsOItFhSgZGVpNvexXjLvCa6JclyiwaVMvYzGYyegVSmz6mJGSHm+npkYsPFmVzBychkWhWGKyyjDQ65GputqFoPC8F62HJJRAHWggj4ZCTLAvTJSAIkV2bY2mvv8KxToFT1NSVqIVUKOVds6wMDBroFciWavsXHqneBfblkqL8KhwDaXEmEMDKvSQwiTmD8qggLYuskWgsgtC1cLritbHl5TXtw3ItL0tUDFx0t3vpO5GA5RatQAAAA==') format('woff2'),
+  url('../icon/iconfont.woff?t=1593838740903') format('woff'),
+  url('../icon/iconfont.ttf?t=1593838740903') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+ */
+  url('../icon/iconfont.svg?t=1593838740903#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.iconubuntu:before {
+  content: "\eb37";
+}
+
+.iconcentos:before {
+  content: "\e600";
+}
+
