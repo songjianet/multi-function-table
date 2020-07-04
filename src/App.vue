@@ -1,15 +1,14 @@
 <template>
   <MultiFunctionTable
     :table-data="tableData"
-    :table-headers="tableHeaders"
-    :open-multi-table-header="false">
-    <template slot="id" slot-scope="scope">
-      <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
-    </template>
-    <template slot="iso" slot-scope="scope">
-      <span class="icon iconfont iconcentos"></span>
-      <span>{{scope.row.iso}}</span>
-    </template>
+    :table-headers="tableHeaders">
+<!--    <template slot="id" slot-scope="scope">-->
+<!--      <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>-->
+<!--    </template>-->
+<!--    <template slot="iso" slot-scope="scope">-->
+<!--      <span class="icon iconfont iconcentos"></span>-->
+<!--      <span>{{scope.row.iso}}</span>-->
+<!--    </template>-->
   </MultiFunctionTable>
 </template>
 
@@ -17,14 +16,63 @@
   import MultiFunctionTable from './lib/index'
 
   const HEADERS = [
-    { prop: 'id', label: 'ID' },
+    {
+      prop: 'id',
+      label: 'ID',
+      options: {
+        type: 'sort',
+        value: 'asc'
+      }
+    },
     { prop: 'name', label: '名称' },
-    { prop: 'status', label: '状态' },
-    { prop: 'type', label: '类型' },
+    {
+      prop: 'status',
+      label: '状态',
+      options: {
+        type: 'selector',
+        value: [{
+          key: -1,
+          val: '全部'
+        }, {
+          key: 0,
+          val: '等待中'
+        }, {
+          key: 1,
+          val: '运行中'
+        }]
+      }
+    },
+    {
+      prop: 'type',
+      label: '类型',
+      options: {
+        type: 'selector',
+        value: [{
+          key: -1,
+          val: '全部'
+        }, {
+          key: 0,
+          val: '基础性'
+        }, {
+          key: 1,
+          val: '企业型e1'
+        }, {
+          key: 2,
+          val: '企业型e2'
+        }]
+      }
+    },
     { prop: 'iso', label: '镜像' },
     { prop: 'configure', label: '配置' },
     { prop: 'network', label: '网络' },
-    { prop: 'createTime', label: '创建时间' },
+    {
+      prop: 'createTime',
+      label: '创建时间',
+      options: {
+        type: 'sort',
+        value: 'desc'
+      }
+    },
   ]
 
   const DATA = [{
