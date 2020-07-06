@@ -17,7 +17,7 @@
     </el-table>
     <!--  鼠标右键点击表格行后弹出的列表  -->
     <div
-      v-show="tableRowRightClickStatus"
+      v-show="tableRowRightClickOptions.length !== 0 && tableRowRightClickStatus"
       :class="tableRowRightClickStatus ? 'row-list_mask' : ''"
       @click="tableRowRightClickStatus = false">
       <right-click-list
