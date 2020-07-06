@@ -1,47 +1,80 @@
 <template>
-  <el-table :data="tableData" style="width: 100%">
-    <el-table-column
-      v-for="(item, index) in tableHeaders"
-      :key="index"
-      :prop="item.prop"
-      :label="item.label"
-      :render-header="setHeader">
-      <!--   普通插槽   -->
-      <template slot-scope="scope">
-        <slot :name="item.prop" :row="scope.row" :$index="scope.$index">
-          <span>{{scope.row ? scope.row[item.prop] : ''}}</span>
-        </slot>
-      </template>
-    </el-table-column>
-  </el-table>
+  <div class="container">
+    <el-table :data="tableData" style="width: 100%" @row-contextmenu="clickRight">
+      <el-table-column
+        v-for="(item, index) in tableHeaders"
+        :key="index"
+        :prop="item.prop"
+        :label="item.label"
+        :render-header="setHeader">
+        <!--   普通插槽   -->
+        <template slot-scope="scope">
+          <slot :name="item.prop" :row="scope.row" :$index="scope.$index">
+            <span>{{scope.row ? scope.row[item.prop] : ''}}</span>
+          </slot>
+        </template>
+      </el-table-column>
+    </el-table>
+    <!--  鼠标右键点击表格行后弹出的列表  -->
+    <div
+      v-show="tableRowRightClickStatus"
+      :class="tableRowRightClickStatus ? 'row-list_mask' : ''"
+      @click="tableRowRightClickStatus = false">
+      <right-click-list
+        :class="tableRowRightClickStatus ? 'row-list' : ''"
+        :style="tableRowRightClickStatus ? clickTableRowListStyle : ''"
+        :list-options="tableRowRightClickOptions" />
+    </div>
+  </div>
 </template>
 
 <script type="text/jsx">
+  import RightClickList from './right-click-list'
+
   export default {
     name: 'multi-function-table',
 
     props: {
       tableHeaders: {
         type: Array,
-        default: () => {
-          return []
-        }
+        default: () => { return [] }
       }, // 表头
       tableData: {
         type: Array,
-        default: () => {
-          return []
-        }
+        default: () => { return [] }
       }, // 表格总数据
+      tableRowRightClickOptions: {
+        type: Array,
+        default: () => { return [] }
+      }
     },
 
     data() {
-      return {}
+      return {
+        tableRowRightClickStatus: false,
+        clickTableRowListStyle: {},
+      }
     },
 
-    mounted() {},
+    mounted() {
+
+    },
 
     methods: {
+      /**
+       * 点击表格中的行时触发
+       * */
+      clickRight(row, column, e) {
+        e.preventDefault()
+
+        this.clickTableRowListStyle = {
+          left: e.clientX + 'px',
+          top: e.clientY + 'px'
+        }
+
+        this.tableRowRightClickStatus = true
+      },
+
       /**
        * 设置多功能表头
        * @param {Function} h 参照element-ui
@@ -88,10 +121,28 @@
       }
     },
 
-    computed: {
-
+    components: {
+      RightClickList
     }
   }
 </script>
 
-<style lang="scss"></style>
+<style lang="scss" scoped>
+  .container {
+    position: relative;
+
+    .row-list_mask {
+      width: 100vw;
+      height: 100vh;
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 9;
+
+      .row-list {
+        position: absolute;
+        z-index: 99;
+      }
+    }
+  }
+</style>
