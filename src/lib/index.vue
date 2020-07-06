@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <el-table :data="tableData" style="width: 100%" @row-contextmenu="clickRight">
+    <el-table
+      :data="tableData"
+      style="width: 100%"
+      :header-row-style="{height: tableHeaderHeight + 'px'}"
+      @row-contextmenu="clickRight">
       <el-table-column
         v-for="(item, index) in tableHeaders"
         :key="index"
@@ -19,7 +23,8 @@
     <div
       v-show="tableRowRightClickOptions.length !== 0 && tableRowRightClickStatus"
       :class="tableRowRightClickStatus ? 'row-list_mask' : ''"
-      @click="tableRowRightClickStatus = false">
+      @click="tableRowRightClickStatus = false"
+      @click.right="_tableRowListPosition">
       <right-click-list
         :class="tableRowRightClickStatus ? 'row-list' : ''"
         :style="tableRowRightClickStatus ? clickTableRowListStyle : ''"
@@ -46,7 +51,11 @@
       tableRowRightClickOptions: {
         type: Array,
         default: () => { return [] }
-      }
+      }, // 右键点击后操作列表的数据
+      tableHeaderHeight: {
+        type: String | Number,
+        default: 50
+      } // 表头高度
     },
 
     data() {
@@ -65,12 +74,7 @@
        * 点击表格中的行时触发
        * */
       clickRight(row, column, e) {
-        e.preventDefault()
-
-        this.clickTableRowListStyle = {
-          left: e.clientX + 'px',
-          top: e.clientY + 'px'
-        }
+        this._tableRowListPosition(e)
 
         this.tableRowRightClickStatus = true
       },
@@ -118,6 +122,22 @@
         }
 
         return _dom
+      },
+
+      /**
+       * 渲染表格行右键列表的起始位置坐标
+       * */
+      _tableRowListPosition(e) {
+        if (e.clientY < this.tableHeaderHeight) {
+          return false
+        }
+
+        e.preventDefault()
+
+        this.clickTableRowListStyle = {
+          left: e.clientX + 'px',
+          top: e.clientY + 'px'
+        }
       }
     },
 
