@@ -2,7 +2,10 @@
   <MultiFunctionTable
     :table-data="tableData"
     :table-headers="tableHeaders"
-    :table-row-right-click-options="rightClickOptions">
+    :table-row-right-click-options="rightClickOptions"
+    :total="9"
+    :hideOnSinglePage="false"
+    @currentPage="currentPage">
     <template slot="id" slot-scope="scope">
       <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
     </template>
@@ -76,26 +79,6 @@
     },
   ]
 
-  const DATA = [{
-    id: 'i-djpru7t9',
-    name: 'testDEMO',
-    status: '1',
-    type: '企业型 e2',
-    iso: 'CentOS 7.7 64bit',
-    configure: '2CPU 4G',
-    network: '(cjx-demo) / 192.168.0.2',
-    createTime: '2020-07-02 17:35:42'
-  }, {
-    id: 'i-dji0sru7t9',
-    name: 'testDEMO666',
-    status: '0',
-    type: '个人型 e1',
-    iso: 'ubuntu 6.5 64bit',
-    configure: '1CPU 2G',
-    network: '(cjx-demo) / 192.168.0.1',
-    createTime: '2020-01-22 11:15:12'
-  }]
-
   const RIGHT_CLICK_OPTIONS = [
     { name: '修改', icon: '<i class="el-icon-edit"></i>' },
     { name: '启动', icon: '<i class="el-icon-video-play"></i>' },
@@ -114,14 +97,44 @@
   export default {
     data(){
       return {
-        tableData: DATA,
+        tableData: [],
         tableHeaders: HEADERS,
         rightClickOptions: RIGHT_CLICK_OPTIONS
+      }
+    },
+    mounted() {
+      for (let i = 0; i < 10; i++) {
+        this.tableData.push({
+          id: 'i-djpru7t9' + i,
+          name: 'testDEMO' + i,
+          status: '1' + i,
+          type: '企业型 e2' + i,
+          iso: 'CentOS 7.7 64bit' + i,
+          configure: '2CPU 4G' + i,
+          network: '(cjx-demo) / 192.168.0.2' + i,
+          createTime: '2020-07-02 17:35:42' + i
+        })
       }
     },
     methods: {
       detailPage(id) {
         console.log(id)
+      },
+
+      currentPage(e) {
+        this.tableData = []
+        for (let i = e * 10; i < e * 10 + 10; i++) {
+          this.tableData.push({
+            id: 'i-djpru7t9' + i,
+            name: 'testDEMO' + i,
+            status: '1' + i,
+            type: '企业型 e2' + i,
+            iso: 'CentOS 7.7 64bit' + i,
+            configure: '2CPU 4G' + i,
+            network: '(cjx-demo) / 192.168.0.2' + i,
+            createTime: '2020-07-02 17:35:42' + i
+          })
+        }
       }
     },
     components: {

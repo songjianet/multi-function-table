@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <!--  表格  -->
     <el-table
       :data="tableData"
       style="width: 100%"
@@ -19,6 +20,17 @@
         </template>
       </el-table-column>
     </el-table>
+
+    <!--  分页  -->
+    <div class="pagination-container">
+      <el-pagination
+        :layout="pageLayout"
+        :total="total"
+        :hide-on-single-page="hideOnSinglePage"
+        @current-change="currentPage">
+      </el-pagination>
+    </div>
+
     <!--  鼠标右键点击表格行后弹出的列表  -->
     <div
       v-show="tableRowRightClickOptions.length !== 0 && tableRowRightClickStatus"
@@ -40,6 +52,10 @@
     name: 'multi-function-table',
 
     props: {
+      dataTakeOverMode: {
+        type: Boolean,
+        default: false
+      }, // 是否启用数据接管
       tableHeaders: {
         type: Array,
         default: () => { return [] }
@@ -55,7 +71,31 @@
       tableHeaderHeight: {
         type: String | Number,
         default: 50
-      } // 表头高度
+      }, // 表头高度
+      page: {
+        type: Number,
+        default: 1
+      }, // 当前页
+      total: {
+        type: Number,
+        default: undefined
+      }, // 总条数
+      pageSize: {
+        type: Number,
+        default: 10
+      }, // 分页大小
+      pageSizes: {
+        type: Array,
+        default: () => { return [5, 10, 25, 50, 100] }
+      }, // 可更改的分页大小
+      pageLayout: {
+        type: String,
+        default: () => { return 'prev, pager, next' }
+      }, // 分页模板
+      hideOnSinglePage: {
+        type: Boolean,
+        default: false
+      }, // 只有一个页面时是否隐藏分页器
     },
 
     data() {
@@ -70,6 +110,17 @@
     },
 
     methods: {
+      /**
+       * 当前页选中的时候触发
+       * */
+      currentPage(e) {
+        if (this.dataTakeOverMode) {
+
+        } else {
+          this.$emit('currentPage', e)
+        }
+      },
+
       /**
        * 点击表格中的行时触发
        * */
@@ -150,6 +201,10 @@
 <style lang="scss" scoped>
   .container {
     position: relative;
+
+    .pagination-container {
+      margin-top: 20px;
+    }
 
     .row-list_mask {
       width: 100vw;
