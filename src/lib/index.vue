@@ -169,10 +169,14 @@
             _dom = <span>{ label }<i class="el-icon-sort-down"></i></span> :
             _dom = <span>{ label }<i class="el-icon-sort-up"></i></span>
         } else if (options.type === 'selector') {
-          _dom = <span>{ label }<i class="el-icon-arrow-down"></i></span>
+          _dom = <span onClick={ () => this._selectorTableHeaderClick(label) }>{ label }<i class="el-icon-arrow-down"></i></span>
         }
 
         return _dom
+      },
+
+      _selectorTableHeaderClick(e) {
+        console.log(e)
       },
 
       /**
