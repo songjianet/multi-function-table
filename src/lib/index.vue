@@ -100,14 +100,14 @@
 
     data() {
       return {
-        tableRowRightClickStatus: false,
-        clickTableRowListStyle: {},
+        tableRowRightClickStatus: false, // 鼠标右键点击表格后的事件
+        clickTableRowListStyle: {}, // 定义表格行中通过右键点击弹出的列表的起始位置
+        tableHeaderActive: undefined, // 表格中选中的表头
+        listPositionStyle: {}
       }
     },
 
-    mounted() {
-
-    },
+    created() {},
 
     methods: {
       /**
@@ -147,7 +147,7 @@
               dom = <span>{ item.label }</span>
             } else {
               // tableHeaders中存在表头配置项
-              dom = this._renderHeaderLabelIcon(item.options, column.label)
+              dom = this._renderHeaderLabelIcon(item.options, column.label, column.property)
             }
           }
         })
@@ -158,25 +158,59 @@
       /**
        * 根据不同功能渲染表头文字和图标
        * @param {Object} options 传入的多功能表格中表头的配置文件
-       * @param {String} label 传入的表头文字
+       * @param {String} label 传入的表头label
+       * @param {String} prop 传入的表头prop
        * @return 处理后的DOM
        * */
-      _renderHeaderLabelIcon(options, label) {
+      _renderHeaderLabelIcon(options, label, prop) {
         let _dom
 
         if (options.type === 'sort') {
           options.value === 'desc' ?
-            _dom = <span>{ label }<i class="el-icon-sort-down"></i></span> :
-            _dom = <span>{ label }<i class="el-icon-sort-up"></i></span>
+            _dom = <span class="sort">{ label }<i class="el-icon-sort-down"></i></span> :
+            _dom = <span class="sort">{ label }<i class="el-icon-sort-up"></i></span>
         } else if (options.type === 'selector') {
-          _dom = <span onClick={ () => this._selectorTableHeaderClick(label) }>{ label }<i class="el-icon-arrow-down"></i></span>
+          _dom =
+            <span class="selector" onClick={ (e) => this._selectorTableHeaderClick(e, prop) }>
+              { label }
+              <i class="el-icon-arrow-down"></i>
+              {
+                this.tableHeaderActive === prop ?
+                  <dl class="selector-list" style={ this.listPositionStyle }>
+                    {
+                      this.tableHeaders.map(item => {
+                        if (prop === item.prop) {
+                          return item.options.value.map(oItem => {
+                            return <dd key={ oItem.key }>{ oItem.val }</dd>
+                          })
+                        }
+                      })
+                    }
+                  </dl> :
+                  ''
+              }
+            </span>
         }
 
         return _dom
       },
 
-      _selectorTableHeaderClick(e) {
-        console.log(e)
+      _selectorTableHeaderClick(e, prop) {
+        this.listPositionStyle = {
+          left: e.clientX + 'px',
+          top: e.clientY + 'px'
+        }
+        // console.log(this.listPositionStyle.attrs)
+        // this.listPositionStyle.attrs.style['left'] = e.clientX + 'px'
+        // this.listPositionStyle.attrs.style['top'] = e.clientY + 'px'
+
+        this.tableHeaderActive ?
+          (
+            this.tableHeaderActive === prop ?
+              this.tableHeaderActive = undefined :
+              this.tableHeaderActive = prop
+          ) :
+          this.tableHeaderActive = prop
       },
 
       /**
@@ -222,6 +256,31 @@
         position: absolute;
         z-index: 99;
       }
+    }
+  }
+
+  .sort {
+    &:hover {
+      cursor: pointer;
+    }
+  }
+
+  .selector {
+    .selector-list {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 9;
+      background-color: black;
+      color: aliceblue;
+
+      > dd {
+        margin: 0;
+      }
+    }
+
+    &:hover {
+      cursor: pointer;
     }
   }
 </style>
