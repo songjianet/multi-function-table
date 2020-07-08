@@ -32,16 +32,10 @@
     </div>
 
     <!--  鼠标右键点击表格行后弹出的列表  -->
-    <div
-      v-show="tableRowRightClickOptions.length !== 0 && tableRowRightClickStatus"
-      :class="tableRowRightClickStatus ? 'row-list_mask' : ''"
-      @click="tableRowRightClickStatus = false"
-      @click.right="_tableRowListPosition">
-      <right-click-list
-        :class="tableRowRightClickStatus ? 'row-list' : ''"
-        :style="tableRowRightClickStatus ? clickTableRowListStyle : ''"
-        :list-options="tableRowRightClickOptions" />
-    </div>
+    <right-click-list
+      :table-header-height="tableHeaderHeight"
+      :table-body-click="tableBodyClick"
+      :list-options="tableRowRightClickOptions" />
   </div>
 </template>
 
@@ -100,10 +94,9 @@
 
     data() {
       return {
-        tableRowRightClickStatus: false, // 鼠标右键点击表格后的事件
-        clickTableRowListStyle: {}, // 定义表格行中通过右键点击弹出的列表的起始位置
         tableHeaderActive: undefined, // 表格中选中的表头
-        listPositionStyle: {}
+        listPositionStyle: {}, // 表格中选择器表头的
+        tableBodyClick: {}
       }
     },
 
@@ -122,12 +115,21 @@
       },
 
       /**
-       * 点击表格中的行时触发
+       * 点击表格中的行时触发, 渲染表格行右键列表的起始位置坐标
        * */
       clickRight(row, column, e) {
-        this._tableRowListPosition(e)
+        if (e.clientY < this.tableHeaderHeight) {
+          return false
+        }
 
-        this.tableRowRightClickStatus = true
+        e.preventDefault()
+
+        this.tableBodyClick = {
+          left: e.clientX + 'px',
+          top: e.clientY + 'px'
+        }
+
+        console.log(this.tableBodyClick)
       },
 
       /**
@@ -195,14 +197,16 @@
         return _dom
       },
 
+      /**
+       * 鼠标点击表格中带有选择器的表头
+       * @param {Object} e
+       * @param {String} prop 表格表头数据字段名
+       * */
       _selectorTableHeaderClick(e, prop) {
         this.listPositionStyle = {
           left: e.clientX + 'px',
           top: e.clientY + 'px'
         }
-        // console.log(this.listPositionStyle.attrs)
-        // this.listPositionStyle.attrs.style['left'] = e.clientX + 'px'
-        // this.listPositionStyle.attrs.style['top'] = e.clientY + 'px'
 
         this.tableHeaderActive ?
           (
@@ -211,22 +215,6 @@
               this.tableHeaderActive = prop
           ) :
           this.tableHeaderActive = prop
-      },
-
-      /**
-       * 渲染表格行右键列表的起始位置坐标
-       * */
-      _tableRowListPosition(e) {
-        if (e.clientY < this.tableHeaderHeight) {
-          return false
-        }
-
-        e.preventDefault()
-
-        this.clickTableRowListStyle = {
-          left: e.clientX + 'px',
-          top: e.clientY + 'px'
-        }
       }
     },
 
@@ -242,20 +230,6 @@
 
     .pagination-container {
       margin-top: 20px;
-    }
-
-    .row-list_mask {
-      width: 100vw;
-      height: 100vh;
-      position: absolute;
-      top: 0;
-      left: 0;
-      z-index: 9;
-
-      .row-list {
-        position: absolute;
-        z-index: 99;
-      }
     }
   }
 
