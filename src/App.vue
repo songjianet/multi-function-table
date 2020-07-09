@@ -24,8 +24,7 @@
       prop: 'id',
       label: 'ID',
       options: {
-        type: 'sort',
-        value: 'asc'
+        type: 'sort'
       }
     },
     { prop: 'name', label: '名称' },
@@ -73,8 +72,7 @@
       prop: 'createTime',
       label: '创建时间',
       options: {
-        type: 'sort',
-        value: 'desc'
+        type: 'sort'
       }
     },
   ]

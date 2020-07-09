@@ -94,9 +94,11 @@
 
     data() {
       return {
-        tableHeaderActive: undefined, // 表格中选中的表头
+        tableHeaderSelectorActive: undefined, // 表格中选中的表头
         listPositionStyle: {}, // 表格中选择器表头的
-        tableBodyClick: {}
+        tableBodyClick: {}, // 点击表格中行的坐标
+        tableHeadersSortActive: '',
+        tableHeadersSortStatus: '',
       }
     },
 
@@ -168,16 +170,26 @@
         let _dom
 
         if (options.type === 'sort') {
-          options.value === 'desc' ?
-            _dom = <span class="sort">{ label }<i class="el-icon-sort-down"></i></span> :
-            _dom = <span class="sort">{ label }<i class="el-icon-sort-up"></i></span>
+          _dom =
+            <span class="sort" onClick={ () => this._sortTableHeaderClick(prop) }>
+              { label }
+              {
+                this.tableHeadersSortActive ?
+                  (
+                    this.tableHeadersSortActive === prop ?
+                      <i class={ this.tableHeadersSortStatus === 'asc' ? 'el-icon-sort-up' : 'el-icon-sort-down'}></i> :
+                      <i class="el-icon-sort"></i>
+                  ) :
+                  <i class="el-icon-sort"></i>
+              }
+            </span>
         } else if (options.type === 'selector') {
           _dom =
             <span class="selector" onClick={ (e) => this._selectorTableHeaderClick(e, prop) }>
               { label }
               <i class="el-icon-arrow-down"></i>
               {
-                this.tableHeaderActive === prop ?
+                this.tableHeaderSelectorActive === prop ?
                   <dl class="selector-list" style={ this.listPositionStyle }>
                     {
                       this.tableHeaders.map(item => {
@@ -198,6 +210,20 @@
       },
 
       /**
+       * 鼠标点击表格中带有排序的表头
+       * @param {String} prop 表格表头数据字段名
+       * */
+      _sortTableHeaderClick(prop) {
+        this.tableHeadersSortActive = prop
+
+        if (this.tableHeadersSortStatus === 'desc') {
+          this.tableHeadersSortStatus = 'asc'
+        } else {
+          this.tableHeadersSortStatus = 'desc'
+        }
+      },
+
+      /**
        * 鼠标点击表格中带有选择器的表头
        * @param {Object} e
        * @param {String} prop 表格表头数据字段名
@@ -208,13 +234,13 @@
           top: e.clientY + 'px'
         }
 
-        this.tableHeaderActive ?
+        this.tableHeaderSelectorActive ?
           (
-            this.tableHeaderActive === prop ?
-              this.tableHeaderActive = undefined :
-              this.tableHeaderActive = prop
+            this.tableHeaderSelectorActive === prop ?
+              this.tableHeaderSelectorActive = undefined :
+              this.tableHeaderSelectorActive = prop
           ) :
-          this.tableHeaderActive = prop
+          this.tableHeaderSelectorActive = prop
       }
     },
 
