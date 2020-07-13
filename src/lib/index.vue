@@ -11,7 +11,7 @@
         :key="index"
         :prop="item.prop"
         :label="item.label"
-        :sortable="item.options ? (item.options.type === 'sort' ? true : false) : false"
+        :sortable="item.options ? (item.options.type === 'sort') : false"
         :render-header="setHeader">
         <!--   普通插槽   -->
         <template slot-scope="scope">
