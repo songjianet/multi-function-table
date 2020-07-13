@@ -11,6 +11,7 @@
         :key="index"
         :prop="item.prop"
         :label="item.label"
+        :sortable="item.options ? (item.options.type === 'sort' ? true : false) : false"
         :render-header="setHeader">
         <!--   普通插槽   -->
         <template slot-scope="scope">
@@ -130,8 +131,6 @@
           left: e.clientX + 'px',
           top: e.clientY + 'px'
         }
-
-        console.log(this.tableBodyClick)
       },
 
       /**
@@ -171,17 +170,8 @@
 
         if (options.type === 'sort') {
           _dom =
-            <span class="sort" onClick={ () => this._sortTableHeaderClick(prop) }>
+            <span class="sort">
               { label }
-              {
-                this.tableHeadersSortActive ?
-                  (
-                    this.tableHeadersSortActive === prop ?
-                      <i class={ this.tableHeadersSortStatus === 'asc' ? 'el-icon-sort-up' : 'el-icon-sort-down'}></i> :
-                      <i class="el-icon-sort"></i>
-                  ) :
-                  <i class="el-icon-sort"></i>
-              }
             </span>
         } else if (options.type === 'selector') {
           _dom =
@@ -207,20 +197,6 @@
         }
 
         return _dom
-      },
-
-      /**
-       * 鼠标点击表格中带有排序的表头
-       * @param {String} prop 表格表头数据字段名
-       * */
-      _sortTableHeaderClick(prop) {
-        this.tableHeadersSortActive = prop
-
-        if (this.tableHeadersSortStatus === 'desc') {
-          this.tableHeadersSortStatus = 'asc'
-        } else {
-          this.tableHeadersSortStatus = 'desc'
-        }
       },
 
       /**
