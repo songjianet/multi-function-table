@@ -5,7 +5,13 @@
       :data="tableData"
       style="width: 100%"
       :header-row-style="{height: tableHeaderHeight + 'px'}"
-      @row-contextmenu="clickRight">
+      @row-contextmenu="clickRight"
+      @selection-change="handleSelectionChange">
+      <el-table-column
+        v-if="isCheckbox"
+        type="selection"
+        width="55">
+      </el-table-column>
       <el-table-column
         v-for="(item, index) in tableHeaders"
         :key="index"
@@ -67,6 +73,10 @@
         type: String | Number,
         default: 50
       }, // 表头高度
+      isCheckbox: {
+        type: Boolean,
+        default: false
+      }, // 启用表格多选
       page: {
         type: Number,
         default: 1
@@ -217,6 +227,10 @@
               this.tableHeaderSelectorActive = prop
           ) :
           this.tableHeaderSelectorActive = prop
+      },
+
+      handleSelectionChange(val) {
+        this.$emit('currentSelection', val)
       }
     },
 

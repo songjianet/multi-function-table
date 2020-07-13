@@ -5,7 +5,9 @@
     :table-row-right-click-options="rightClickOptions"
     :total="9"
     :hideOnSinglePage="false"
-    @currentPage="currentPage">
+    :is-checkbox="true"
+    @currentPage="currentPage"
+    @currentSelection="currentSelection">
     <template slot="id" slot-scope="scope">
       <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
     </template>
@@ -133,6 +135,10 @@
             createTime: '2020-07-02 17:35:42' + i
           })
         }
+      },
+
+      currentSelection(e) {
+        console.log(e)
       }
     },
     components: {
