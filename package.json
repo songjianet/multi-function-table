@@ -1,7 +1,7 @@
 {
   "name": "multi-function-table",
   "description": "A multifunctional table based on secondary development of element UI.",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "author": "songjianet <1778651752@qq.com>",
   "repository": {
     "type": "git",
@@ -13,6 +13,18 @@
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --hot",
     "build": "cross-env NODE_ENV=production webpack --progress --hide-modules"
   },
+  "keywords": [
+    "element",
+    "element-ui",
+    "element table",
+    "element-ui table",
+    "element multi function table",
+    "element function table",
+    "table",
+    "multi function table",
+    "function table",
+    "multi table"
+  ],
   "dependencies": {
     "axios": "^0.19.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
