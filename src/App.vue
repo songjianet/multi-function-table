@@ -4,7 +4,7 @@
     :table-headers="tableHeaders"
     :table-row-right-click-options="rightClickOptions"
     :total="9"
-    :hideOnSinglePage="false"
+    :hide-on-single-page="false"
     :is-checkbox="true"
     @currentPage="currentPage"
     @currentSelection="currentSelection">
@@ -95,7 +95,7 @@
   ]
 
   export default {
-    data(){
+    data() {
       return {
         tableData: [],
         tableHeaders: HEADERS,

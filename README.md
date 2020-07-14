@@ -1,0 +1,370 @@
+## multi-function-table
+
+> 基于`Element UI`进行二次开发的多功能表格组件
+
+### 安装
+
+#### 使用npm进行安装
+
+```shell script
+npm i multi-function-table
+```
+
+#### 使用yarn进行安装
+
+```shell script
+yarn add multi-function-table
+```
+
+### 快速上手
+
+#### 全局引入
+
+在`main.js`中引入：
+
+```javascript
+import Vue from 'vue'
+import MultiFunctionTable from 'multi-function-table'
+import App from './App.vue'
+
+Vue.use(MultiFunctionTable)
+
+new Vue({
+  el: '#app',
+  render: h => h(App)
+})
+```
+
+在组件中引入：
+
+```vue
+<template>
+  <MultiFunctionTable></MultiFunctionTable>
+</template>
+<script>
+  import MultiFunctionTable from 'multi-function-table'
+
+  export default {
+    components: { MultiFunctionTable }
+  }
+</script>
+```
+
+### 基础表格
+
+基础的表格展示用法。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 在表头上进行数据的检索
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          {
+            prop: 'sex',
+            label: '性别',
+            options: {
+              type: 'selector',
+              value: [{
+                key: -1,
+                val: '全部'
+              }, {
+                key: 0,
+                val: '男'
+              }, {
+                key: 1,
+                val: '女'
+              }]
+            }
+          }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 表格排序
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别', options: { type: 'sort' } }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 多操作选项列表
+
+可以在表格中的每一行数据进行右键点击，点击后会弹出一个操作列表，当对数据的操作选项过多时建议使用。
+在参数的配置中，可以通过`icon`字段传入一个`icon`的`DOM`结构，用于操作选项的图标显示。
+针对`DOM`的传入可以让你更灵活的使用`Element UI`提供的图标，也可以使用来自`iconfont`的图标。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :table-row-right-click-options="rightClickOptions">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ],
+        rightClickOptions: [
+          { name: '修改', icon: '<i class="el-icon-edit"></i>' },
+          { name: '删除', icon: '<i class="el-icon-delete"></i>' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 表格多选
+
+通过将`is-checkbox`字段设置为`true`以增加表格多选功能，选中的项可以通过`currentSelection`方法进行返回。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :is-checkbox="true"
+    @currentSelection="currentSelection">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    },
+    methods: {
+      currentSelection(e) {
+        console.log(e)
+      }
+    }
+  }
+</script>
+```
+
+### 分页
+
+在该表格组件中，我们默认分页的状态是开启的。
+`hide-on-single-page`参数值为`true`时，在表格中只有一页数据的时候隐藏分页器
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="10"
+    :hide-on-single-page="true">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 分页大小选择器
+
+分页大小选择器为用户提供几种可以改变分页大小的选项。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="10"
+    :page-sizes="[5, 10, 25, 50, 100]">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 分页器布局
+
+可以根据使用场景组合不同的分页器子模块的布局方式。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="10"
+    page-layout="prev, pager, next">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
