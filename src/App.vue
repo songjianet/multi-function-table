@@ -19,7 +19,7 @@
 </template>
 
 <script>
-  import MultiFunctionTable from './lib/index'
+  import MultiFunctionTable from './lib/MultiFunctionTable'
 
   const HEADERS = [
     {

@@ -47,7 +47,7 @@
 </template>
 
 <script type="text/jsx">
-  import RightClickList from './right-click-list'
+  import RightClickList from './RightClickList'
 
   export default {
     name: 'multi-function-table',
