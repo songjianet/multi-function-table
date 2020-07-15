@@ -1,21 +1,42 @@
 <template>
-  <MultiFunctionTable
-    :table-data="tableData"
-    :table-headers="tableHeaders"
-    :table-row-right-click-options="rightClickOptions"
-    :total="9"
-    :hide-on-single-page="false"
-    :is-checkbox="true"
-    @currentPage="currentPage"
-    @currentSelection="currentSelection">
-    <template slot="id" slot-scope="scope">
-      <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
-    </template>
-    <template slot="iso" slot-scope="scope">
-      <span class="icon iconfont iconcentos"></span>
-      <span>{{scope.row.iso}}</span>
-    </template>
-  </MultiFunctionTable>
+  <div>
+    <img src="https://cn.vuejs.org/images/logo.png" alt="">
+    <MultiFunctionTable
+      :table-data="tableData"
+      :table-headers="tableHeaders"
+      :table-row-right-click-options="rightClickOptions"
+      :total="9"
+      :hide-on-single-page="false"
+      :is-checkbox="true"
+      @currentPage="currentPage"
+      @currentSelection="currentSelection">
+      <template slot="id" slot-scope="scope">
+        <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
+      </template>
+      <template slot="iso" slot-scope="scope">
+        <span class="icon iconfont iconcentos"></span>
+        <span>{{scope.row.iso}}</span>
+      </template>
+    </MultiFunctionTable>
+    <hr />
+    <MultiFunctionTable
+      :table-data="tableData"
+      :table-headers="tableHeaders"
+      :table-row-right-click-options="rightClickOptions"
+      :total="9"
+      :hide-on-single-page="false"
+      :is-checkbox="true"
+      @currentPage="currentPage"
+      @currentSelection="currentSelection">
+      <template slot="id" slot-scope="scope">
+        <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
+      </template>
+      <template slot="iso" slot-scope="scope">
+        <span class="icon iconfont iconcentos"></span>
+        <span>{{scope.row.iso}}</span>
+      </template>
+    </MultiFunctionTable>
+  </div>
 </template>
 
 <script>
@@ -103,7 +124,7 @@
       }
     },
     mounted() {
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 2; i++) {
         this.tableData.push({
           id: 'i-djpru7t9' + i,
           name: 'testDEMO' + i,

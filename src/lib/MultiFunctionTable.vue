@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+ <div class="container">
     <!--  表格  -->
     <el-table
       :data="tableData"
@@ -40,8 +40,7 @@
 
     <!--  鼠标右键点击表格行后弹出的列表  -->
     <right-click-list
-      :table-header-height="tableHeaderHeight"
-      :table-body-click="tableBodyClick"
+      :value="tableBodyClick"
       :list-options="tableRowRightClickOptions" />
   </div>
 </template>
@@ -109,11 +108,23 @@
         listPositionStyle: {}, // 表格中选择器表头的
         tableBodyClick: {}, // 点击表格中行的坐标
         tableHeadersSortActive: '',
-        tableHeadersSortStatus: '',
+        tableHeadersSortStatus: ''
       }
     },
 
-    created() {},
+    mounted() {
+      if (!window.rightClickOptionsList) {
+        window.rightClickOptionsList = () => {
+          const DOM = document.getElementsByClassName('options-list')
+          for (let i = 0, length = DOM.length; i < length; i++) {
+            DOM[i].style = 'display: none;'
+          }
+        }
+      }
+
+      document.body.removeEventListener('click', window.rightClickOptionsList)
+      document.body.addEventListener('click', window.rightClickOptionsList)
+    },
 
     methods: {
       /**
@@ -131,7 +142,7 @@
        * 点击表格中的行时触发, 渲染表格行右键列表的起始位置坐标
        * */
       clickRight(row, column, e) {
-        if (e.clientY < this.tableHeaderHeight) {
+        if (this.tableRowRightClickOptions.length === 0) {
           return false
         }
 

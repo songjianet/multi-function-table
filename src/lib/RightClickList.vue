@@ -1,29 +1,24 @@
 <template>
-  <div
-    v-if="listOptions.length !== 0 && rightClickStatus"
-    :class="rightClickStatus ? 'list_mask' : ''"
-    @click="(rightClickStatus = false) & (secondMenuShowStatus = false)"
-    @click.right="_tableRowListPosition">
-    <dl
-      class="container"
-      :class="rightClickStatus ? 'list' : ''"
-      :style="rightClickStatus ? clickTableRowListStyle : ''">
-      <dd
-        @mouseover="fItem.secondMenu && fItem.secondMenu.length > 0 ? secondMenuShowStatus = true : secondMenuShowStatus = false"
-        class="f-list"
-        v-for="(fItem, fIndex) in listOptions"
-        :key="'f' + fIndex">
-        <span v-html="fItem.icon"></span>
-        <span>{{fItem.name}}</span>
-        <dl v-if="fItem.secondMenu && secondMenuShowStatus">
-          <dd v-for="(sItem, sIndex) in fItem.secondMenu" :key="'s' + sIndex">
-            <span v-html="sItem.icon"></span>
-            <span>{{sItem.name}}</span>
-          </dd>
-        </dl>
-      </dd>
-    </dl>
-  </div>
+  <dl
+    class="options-list"
+    ref="optionsList"
+    :class="isMaskShow ? 'list' : ''"
+    :style="isMaskShow ? renderOptionsListStyle : ''">
+    <dd
+      @mouseover="fItem.secondMenu && fItem.secondMenu.length > 0 ? secondMenuShowStatus = true : secondMenuShowStatus = false"
+      class="f-list"
+      v-for="(fItem, fIndex) in listOptions"
+      :key="'f' + fIndex">
+      <span v-html="fItem.icon"></span>
+      <span>{{fItem.name}}</span>
+      <dl v-if="fItem.secondMenu && secondMenuShowStatus">
+        <dd v-for="(sItem, sIndex) in fItem.secondMenu" :key="'s' + sIndex">
+          <span v-html="sItem.icon"></span>
+          <span>{{sItem.name}}</span>
+        </dd>
+      </dl>
+    </dd>
+  </dl>
 </template>
 
 <script>
@@ -35,53 +30,47 @@
         type: Array,
         default: () => { return [] }
       },
-      tableBodyClick: {
+      value: {
         type: Object,
         default: {}
-      }, // 与表格组合使用时传入的鼠标右键点击的event坐标
-      tableHeaderHeight: {
-        type: String | Number,
-        default: 50
-      }
+      } // 与表格组合使用时传入的鼠标右键点击的event坐标
     },
 
     data() {
       return {
-        secondMenuShowStatus: false,
-        rightClickStatus: false,
-        clickTableRowListStyle: {}
+        secondMenuShowStatus: false, // 二级菜单显示隐藏
+        isMaskShow: false, // 遮罩层状态
+        renderOptionsListStyle: {}, // 操作菜单样式渲染
+        tempRenderOptionsListStyle: {}, // 临时保存操作菜单样式，用于滚动时候计算
+        toDocumentHeight: '' // 坐标到整个文档之间的距离
       }
     },
 
     mounted() {
-
-    },
-
-    methods: {
-      _tableRowListPosition(e) {
-        if (e.clientY < this.tableHeaderHeight) {
-          return false
-        }
-
-        this.secondMenuShowStatus = false
-
-        e.preventDefault()
-
-        this.clickTableRowListStyle = {
-          left: e.clientX + 'px',
-          top: e.clientY + 'px'
+      if (!window.onscroll) {
+        window.onscroll = () => {
+          const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+          if (Object.keys(this.tempRenderOptionsListStyle).length !== 0) {
+            this.renderOptionsListStyle = {
+              top:  (this.toDocumentHeight - scrollTop) + 'px',
+              left: this.tempRenderOptionsListStyle.left,
+              display: 'block'
+            }
+          }
         }
       }
     },
 
     watch: {
-      tableBodyClick: {
+      value: {
         handler(n) {
           if (n.left && n.top) {
-            this.rightClickStatus = true
-            this.clickTableRowListStyle = n
+            this.isMaskShow = true
+            this.$refs['optionsList'].style = `display: block; left: ${n.left}; top: ${n.top}`
+            this.tempRenderOptionsListStyle = n
+            this.toDocumentHeight = parseInt(n.top.split('px')[0]) + (document.documentElement.scrollTop || document.body.scrollTop)
           } else {
-            this.rightClickStatus = false
+            this.isMaskShow = false
           }
         },
         immediate: true
@@ -91,17 +80,12 @@
 </script>
 
 <style lang="scss" scoped>
-  .list_mask {
-    width: 100vw;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 9;
+  .options-list {
+    display: none;
+  }
 
-    .list {
-      position: absolute;
-      z-index: 99;
-    }
+  .list {
+    position: fixed;
+    z-index: 99;
   }
 </style>
