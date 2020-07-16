@@ -67,6 +67,7 @@
           if (n.left && n.top) {
             this.isMaskShow = true
             this.$refs['optionsList'].style = `display: block; left: ${n.left}; top: ${n.top}`
+            this.secondMenuShowStatus = false
             this.tempRenderOptionsListStyle = n
             this.toDocumentHeight = parseInt(n.top.split('px')[0]) + (document.documentElement.scrollTop || document.body.scrollTop)
           } else {
