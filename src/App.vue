@@ -1,41 +1,25 @@
 <template>
   <div>
     <img src="https://cn.vuejs.org/images/logo.png" alt="">
-    <MultiFunctionTable
-      :table-data="tableData"
-      :table-headers="tableHeaders"
-      :table-row-right-click-options="rightClickOptions"
-      :total="9"
-      :hide-on-single-page="false"
-      :is-checkbox="true"
-      @currentPage="currentPage"
-      @currentSelection="currentSelection">
-      <template slot="id" slot-scope="scope">
-        <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
-      </template>
-      <template slot="iso" slot-scope="scope">
-        <span class="icon iconfont iconcentos"></span>
-        <span>{{scope.row.iso}}</span>
-      </template>
-    </MultiFunctionTable>
-    <hr />
-    <MultiFunctionTable
-      :table-data="tableData"
-      :table-headers="tableHeaders"
-      :table-row-right-click-options="rightClickOptions"
-      :total="9"
-      :hide-on-single-page="false"
-      :is-checkbox="true"
-      @currentPage="currentPage"
-      @currentSelection="currentSelection">
-      <template slot="id" slot-scope="scope">
-        <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
-      </template>
-      <template slot="iso" slot-scope="scope">
-        <span class="icon iconfont iconcentos"></span>
-        <span>{{scope.row.iso}}</span>
-      </template>
-    </MultiFunctionTable>
+    <div>
+      <MultiFunctionTable
+        :table-data="tableData"
+        :table-headers="tableHeaders"
+        :table-row-right-click-options="rightClickOptions"
+        :total="9"
+        :hide-on-single-page="false"
+        :is-checkbox="true"
+        @currentPage="currentPage"
+        @currentSelection="currentSelection">
+        <template slot="id" slot-scope="scope">
+          <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
+        </template>
+        <template slot="iso" slot-scope="scope">
+          <span class="icon iconfont iconcentos"></span>
+          <span>{{scope.row.iso}}</span>
+        </template>
+      </MultiFunctionTable>
+    </div>
   </div>
 </template>
 
@@ -50,7 +34,7 @@
         type: 'sort'
       }
     },
-    { prop: 'name', label: '名称' },
+    {prop: 'name', label: '名称'},
     {
       prop: 'status',
       label: '状态',
@@ -88,9 +72,9 @@
         }]
       }
     },
-    { prop: 'iso', label: '镜像' },
-    { prop: 'configure', label: '配置' },
-    { prop: 'network', label: '网络' },
+    {prop: 'iso', label: '镜像'},
+    {prop: 'configure', label: '配置'},
+    {prop: 'network', label: '网络'},
     {
       prop: 'createTime',
       label: '创建时间',
@@ -101,16 +85,16 @@
   ]
 
   const RIGHT_CLICK_OPTIONS = [
-    { name: '修改', icon: '<i class="el-icon-edit"></i>' },
-    { name: '启动', icon: '<i class="el-icon-video-play"></i>' },
-    { name: '关机', icon: '<i class="el-icon-edit"></i>' },
-    { name: '重启', icon: '<i class="el-icon-edit"></i>' },
+    {name: '修改', icon: '<i class="el-icon-edit"></i>'},
+    {name: '启动', icon: '<i class="el-icon-video-play"></i>'},
+    {name: '关机', icon: '<i class="el-icon-edit"></i>'},
+    {name: '重启', icon: '<i class="el-icon-edit"></i>'},
     {
       name: '网络',
       icon: '<i class="el-icon-edit"></i>',
       secondMenu: [
-        { name: '加入', icon: '<i class="el-icon-edit"></i>' },
-        { name: '离开', icon: '<i class="el-icon-edit"></i>' }
+        {name: '加入', icon: '<i class="el-icon-edit"></i>'},
+        {name: '离开', icon: '<i class="el-icon-edit"></i>'}
       ]
     }
   ]
@@ -171,6 +155,7 @@
 <style lang="scss" scoped>
   .mft-url-style {
     color: #0366d6;
+
     &:hover {
       border-bottom: 1px solid #0041af;
       cursor: pointer;

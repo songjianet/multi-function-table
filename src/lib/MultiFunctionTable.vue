@@ -196,9 +196,8 @@
             </span>
         } else if (options.type === 'selector') {
           _dom =
-            <span class="selector" onClick={ (e) => this._selectorTableHeaderClick(e, prop) }>
-              { label }
-              <i class="el-icon-arrow-down"></i>
+            <div class="selector" onClick={ (e) => this._selectorTableHeaderClick(e, prop) }>
+              <span>{label} <i class="el-icon-arrow-down"></i></span>
               {
                 this.tableHeaderSelectorActive === prop ?
                   <dl class="selector-list" style={ this.listPositionStyle }>
@@ -214,7 +213,7 @@
                   </dl> :
                   ''
               }
-            </span>
+            </div>
         }
 
         return _dom
@@ -226,11 +225,7 @@
        * @param {String} prop 表格表头数据字段名
        * */
       _selectorTableHeaderClick(e, prop) {
-        this.listPositionStyle = {
-          left: e.clientX + 'px',
-          top: e.clientY + 'px'
-        }
-
+        console.log(e)
         this.tableHeaderSelectorActive ?
           (
             this.tableHeaderSelectorActive === prop ?
@@ -238,6 +233,11 @@
               this.tableHeaderSelectorActive = prop
           ) :
           this.tableHeaderSelectorActive = prop
+
+        this.listPositionStyle = {
+          left: e.layerX + 'px',
+          top: e.layerY + 'px'
+        }
       },
 
       handleSelectionChange(val) {
@@ -252,6 +252,12 @@
 </script>
 
 <style lang="scss" scoped>
+  .container /deep/ .el-table__header-wrapper,
+  .container /deep/ .el-table__header-wrapper thead th,
+  .container /deep/ .el-table__header-wrapper thead th .cell {
+    overflow: visible !important;
+  }
+
   .container {
     position: relative;
 
@@ -267,11 +273,11 @@
   }
 
   .selector {
+    position: relative;
+
     .selector-list {
-      position: fixed;
-      top: 0;
-      left: 0;
-      z-index: 9;
+      position: absolute;
+      z-index: 999999;
       background-color: black;
       color: aliceblue;
 
