@@ -6,11 +6,13 @@
         :table-data="tableData"
         :table-headers="tableHeaders"
         :table-row-right-click-options="rightClickOptions"
+        :is-page="true"
         :total="9"
         :hide-on-single-page="false"
         :is-checkbox="true"
         @currentPage="currentPage"
-        @currentSelection="currentSelection">
+        @selectionChange="currentSelection"
+        @rowClick="rowClick">
         <template slot="id" slot-scope="scope">
           <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
         </template>
@@ -35,43 +37,8 @@
       }
     },
     {prop: 'name', label: '名称'},
-    {
-      prop: 'status',
-      label: '状态',
-      options: {
-        type: 'selector',
-        value: [{
-          key: -1,
-          val: '全部'
-        }, {
-          key: 0,
-          val: '等待中'
-        }, {
-          key: 1,
-          val: '运行中'
-        }]
-      }
-    },
-    {
-      prop: 'type',
-      label: '类型',
-      options: {
-        type: 'selector',
-        value: [{
-          key: -1,
-          val: '全部'
-        }, {
-          key: 0,
-          val: '基础性'
-        }, {
-          key: 1,
-          val: '企业型e1'
-        }, {
-          key: 2,
-          val: '企业型e2'
-        }]
-      }
-    },
+    {prop: 'status', label: '状态'},
+    {prop: 'type', label: '类型',},
     {prop: 'iso', label: '镜像'},
     {prop: 'configure', label: '配置'},
     {prop: 'network', label: '网络'},
@@ -124,6 +91,10 @@
     methods: {
       detailPage(id) {
         console.log(id)
+      },
+
+      rowClick(row, column, even) {
+        console.log(row, column, even)
       },
 
       currentPage(e) {

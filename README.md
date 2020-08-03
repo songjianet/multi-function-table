@@ -85,55 +85,6 @@ new Vue({
 </script>
 ```
 
-### 在表头上进行数据的检索
-
-```vue
-<template>
-  <MultiFunctionTable
-    :table-data="tableData"
-    :table-headers="tableHeaders">
-  </MultiFunctionTable>
-</template>
-<script>
-  export default {
-    data() {
-      return {
-        tableData: [{
-          name: '小明',
-          mobile: '133xxxx8976',
-          sex: '男'
-        }, {
-          name: '小红',
-          mobile: '173xxxx8976',
-          sex: '女'
-        }],
-        tableHeaders: [
-          { prop: 'name', label: '姓名' },
-          { prop: 'mobile', label: '手机号' },
-          {
-            prop: 'sex',
-            label: '性别',
-            options: {
-              type: 'selector',
-              value: [{
-                key: -1,
-                val: '全部'
-              }, {
-                key: 0,
-                val: '男'
-              }, {
-                key: 1,
-                val: '女'
-              }]
-            }
-          }
-        ]
-      }
-    }
-  }
-</script>
-```
-
 ### 表格排序
 
 ```vue
@@ -253,7 +204,7 @@ new Vue({
 
 ### 分页
 
-在该表格组件中，我们默认分页的状态是开启的。
+在该表格组件中，可以通过`is-page`参数传递一个布尔值来决定是否开启分页。
 `hide-on-single-page`参数值为`true`时，在表格中只有一页数据的时候隐藏分页器
 
 ```vue
@@ -368,3 +319,12 @@ new Vue({
   }
 </script>
 ```
+
+### 事件
+
+|事件名|说明|参数
+|:----|:----|:----|
+|rowClick|当某一行被点击时会触发该事件|```row, column, event```|
+|currentPage|当分页器的当前页发生变化时会触发该事件|```page```|
+|selectionChange|当多选框选中项发生变化时会触发该事件|```selection```|
+

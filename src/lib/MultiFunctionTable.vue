@@ -5,6 +5,7 @@
       :data="tableData"
       style="width: 100%"
       :header-row-style="{height: tableHeaderHeight + 'px'}"
+      @row-click="rowClick"
       @row-contextmenu="clickRight"
       @selection-change="handleSelectionChange">
       <el-table-column
@@ -29,7 +30,7 @@
     </el-table>
 
     <!--  分页  -->
-    <div class="pagination-container">
+    <div v-if="isPage" class="pagination-container">
       <el-pagination
         :layout="pageLayout"
         :total="total"
@@ -76,6 +77,10 @@
         type: Boolean,
         default: false
       }, // 启用表格多选
+      isPage: {
+        type: Boolean,
+        default: true
+      }, // 是否启用表格分页
       page: {
         type: Number,
         default: 1
@@ -104,8 +109,6 @@
 
     data() {
       return {
-        tableHeaderSelectorActive: undefined, // 表格中选中的表头
-        listPositionStyle: {}, // 表格中选择器表头的
         tableBodyClick: {}, // 点击表格中行的坐标
         tableHeadersSortActive: '',
         tableHeadersSortStatus: ''
@@ -136,6 +139,10 @@
         } else {
           this.$emit('currentPage', e)
         }
+      },
+
+      rowClick(row, column, event) {
+        this.$emit('rowClick', row, column, event)
       },
 
       /**
@@ -194,54 +201,13 @@
             <span class="sort">
               { label }
             </span>
-        } else if (options.type === 'selector') {
-          _dom =
-            <div class="selector" onClick={ (e) => this._selectorTableHeaderClick(e, prop) }>
-              <span>{label} <i class="el-icon-arrow-down"></i></span>
-              {
-                this.tableHeaderSelectorActive === prop ?
-                  <dl class="selector-list" style={ this.listPositionStyle }>
-                    {
-                      this.tableHeaders.map(item => {
-                        if (prop === item.prop) {
-                          return item.options.value.map(oItem => {
-                            return <dd key={ oItem.key }>{ oItem.val }</dd>
-                          })
-                        }
-                      })
-                    }
-                  </dl> :
-                  ''
-              }
-            </div>
         }
 
         return _dom
       },
 
-      /**
-       * 鼠标点击表格中带有选择器的表头
-       * @param {Object} e
-       * @param {String} prop 表格表头数据字段名
-       * */
-      _selectorTableHeaderClick(e, prop) {
-        console.log(e)
-        this.tableHeaderSelectorActive ?
-          (
-            this.tableHeaderSelectorActive === prop ?
-              this.tableHeaderSelectorActive = undefined :
-              this.tableHeaderSelectorActive = prop
-          ) :
-          this.tableHeaderSelectorActive = prop
-
-        this.listPositionStyle = {
-          left: e.layerX + 'px',
-          top: e.layerY + 'px'
-        }
-      },
-
       handleSelectionChange(val) {
-        this.$emit('currentSelection', val)
+        this.$emit('selectionChange', val)
       }
     },
 
@@ -267,25 +233,6 @@
   }
 
   .sort {
-    &:hover {
-      cursor: pointer;
-    }
-  }
-
-  .selector {
-    position: relative;
-
-    .selector-list {
-      position: absolute;
-      z-index: 999999;
-      background-color: black;
-      color: aliceblue;
-
-      > dd {
-        margin: 0;
-      }
-    }
-
     &:hover {
       cursor: pointer;
     }
