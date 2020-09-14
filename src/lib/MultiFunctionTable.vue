@@ -21,7 +21,7 @@
         :sortable="item.options ? (item.options.type === 'sort') : false"
         :render-header="setHeader">
         <!--   普通插槽   -->
-        <template slot-scope="scope">
+        <template slot-scope="scope" >
           <slot :name="item.prop" :row="scope.row" :$index="scope.$index">
             <span>{{scope.row ? scope.row[item.prop] : ''}}</span>
           </slot>
@@ -41,8 +41,9 @@
 
     <!--  鼠标右键点击表格行后弹出的列表  -->
     <right-click-list
+      :menu="$scopedSlots.clickMenu"
       :value="tableBodyClick"
-      :list-options="tableRowRightClickOptions" />
+      :list-options="tableRowRightClickOptions"/>
   </div>
 </template>
 
@@ -157,7 +158,8 @@
 
         this.tableBodyClick = {
           left: e.clientX + 'px',
-          top: e.clientY + 'px'
+          top: e.clientY + 'px',
+          current: {row, column, e}
         }
       },
 

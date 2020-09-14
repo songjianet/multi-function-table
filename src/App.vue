@@ -1,6 +1,7 @@
 <template>
   <div>
     <img src="https://cn.vuejs.org/images/logo.png" alt="">
+    <div>{{msg}}</div>
     <div>
       <MultiFunctionTable
         :table-data="tableData"
@@ -52,7 +53,10 @@
   ]
 
   const RIGHT_CLICK_OPTIONS = [
-    {name: '修改', icon: '<i class="el-icon-edit"></i>'},
+    {name: '修改', icon: '<i class="el-icon-edit"></i>', fn: function(val) {
+      console.log(val)
+      this.msg = "world"
+    }},
     {name: '启动', icon: '<i class="el-icon-video-play"></i>'},
     {name: '关机', icon: '<i class="el-icon-edit"></i>'},
     {name: '重启', icon: '<i class="el-icon-edit"></i>'},
@@ -69,6 +73,7 @@
   export default {
     data() {
       return {
+        msg: 'hello',
         tableData: [],
         tableHeaders: HEADERS,
         rightClickOptions: RIGHT_CLICK_OPTIONS

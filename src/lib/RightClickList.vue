@@ -10,11 +10,11 @@
       v-for="(fItem, fIndex) in listOptions"
       :key="'f' + fIndex">
       <span v-html="fItem.icon"></span>
-      <span>{{fItem.name}}</span>
+      <span @click.stop="handleClick(fItem)">{{fItem.name}}</span>
       <dl v-if="fItem.secondMenu && secondMenuShowStatus">
         <dd v-for="(sItem, sIndex) in fItem.secondMenu" :key="'s' + sIndex">
           <span v-html="sItem.icon"></span>
-          <span>{{sItem.name}}</span>
+          <span @click.stop="handleClick(sItem)">{{sItem.name}}</span>
         </dd>
       </dl>
     </dd>
@@ -46,9 +46,19 @@
       }
     },
 
+    methods: {
+      handleClick(item) {
+        if(item.fn) {
+          // HACK 暂时先这样 有时间再改
+          const context = this.$parent.$parent
+          item.fn.call(context, this.value.current.row)
+        }
+      }
+    },
     mounted() {
       if (!window.onscroll) {
         window.onscroll = () => {
+          console.log(this.tempRenderOptionsListStyle)
           const scrollTop = document.documentElement.scrollTop || document.body.scrollTop
           if (Object.keys(this.tempRenderOptionsListStyle).length !== 0) {
             this.renderOptionsListStyle = {
