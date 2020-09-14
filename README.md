@@ -123,6 +123,9 @@ new Vue({
 可以在表格中的每一行数据进行右键点击，点击后会弹出一个操作列表，当对数据的操作选项过多时建议使用。
 在参数的配置中，可以通过`icon`字段传入一个`icon`的`DOM`结构，用于操作选项的图标显示。
 针对`DOM`的传入可以让你更灵活的使用`Element UI`提供的图标，也可以使用来自`iconfont`的图标。
+可以传递fn选项为操作列表添加点击事件，注意fn不能用箭头函数 因为箭头函数用call apply绑定this
+内部将this也就是上下文绑定为调用table组件的实例
+fn中的row参数为当前选中行的数据
 
 ```vue
 <template>
@@ -151,7 +154,7 @@ new Vue({
           { prop: 'sex', label: '性别' }
         ],
         rightClickOptions: [
-          { name: '修改', icon: '<i class="el-icon-edit"></i>' },
+          { name: '修改', icon: '<i class="el-icon-edit"></i>', fn: function(row) {console.log(row)} },
           { name: '删除', icon: '<i class="el-icon-delete"></i>' }
         ]
       }
