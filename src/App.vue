@@ -2,8 +2,13 @@
   <div>
     <img src="https://cn.vuejs.org/images/logo.png" alt="">
     <div>{{msg}}</div>
+    <br>
+    <el-button type="primary" @click="clearCheckbox">清空复选状态</el-button>
+    <br>
+    <el-button type="primary" @click="setCheckbox">设置默认复选框</el-button>
     <div>
       <MultiFunctionTable
+        ref="table"
         :table-data="tableData"
         :table-headers="tableHeaders"
         :table-row-right-click-options="rightClickOptions"
@@ -120,6 +125,12 @@
 
       currentSelection(e) {
         console.log(e)
+      },
+      clearCheckbox() {
+        this.$refs.table.toggleSelection()
+      },
+      setCheckbox(rows) {
+        this.$refs.table.toggleSelection([this.tableData[0]])
       }
     },
     components: {

@@ -166,10 +166,17 @@ fn中的row参数为当前选中行的数据
 ### 表格多选
 
 通过将`is-checkbox`字段设置为`true`以增加表格多选功能，选中的项可以通过`currentSelection`方法进行返回。
+如果设置默认复选状态与清空复选框，可以通过表格的静态方法toggleSelection进行设置。
+如果直接调用toggleSelection()方法会清空当前复选状态
+给toggleSelection方法传递一个数组toggleSelection(rows) 可以设置默认选中状态
 
 ```vue
 <template>
+  <el-button type="primary" @click="clearCheckbox">清空复选状态</el-button>
+  <br>
+  <el-button type="primary" @click="setCheckbox">设置默认复选框</el-button>
   <MultiFunctionTable
+    ref="table"
     :table-data="tableData"
     :table-headers="tableHeaders"
     :is-checkbox="true"
@@ -199,6 +206,12 @@ fn中的row参数为当前选中行的数据
     methods: {
       currentSelection(e) {
         console.log(e)
+      },
+      clearCheckbox() {
+        this.$refs.table.toggleSelection()
+      },
+      setCheckbox(rows) {
+        this.$refs.table.toggleSelection([this.tableData[0]])
       }
     }
   }

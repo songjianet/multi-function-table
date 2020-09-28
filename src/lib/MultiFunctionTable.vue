@@ -2,6 +2,7 @@
  <div class="container">
     <!--  表格  -->
     <el-table
+      ref="multipleTable"
       :data="tableData"
       style="width: 100%"
       :header-row-style="{height: tableHeaderHeight + 'px'}"
@@ -206,6 +207,20 @@
         }
 
         return _dom
+      },
+      /*
+      * 暴露出的静态方法 用于表格有复选框的时候 可以清空复选空与设置默认选中状态
+      * @static method
+      * @param {Array} rows 可选参数 传入默认选中行的数据对象传入一个数组 如果不传走清空逻辑
+      * */
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach(row => {
+            this.$refs.multipleTable.toggleRowSelection(row);
+          });
+        } else {
+          this.$refs.multipleTable.clearSelection();
+        }
       },
 
       handleSelectionChange(val) {
