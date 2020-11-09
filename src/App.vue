@@ -16,6 +16,8 @@
         :total="9"
         :hide-on-single-page="false"
         :is-checkbox="true"
+        header-background="#000000"
+        header-font-color="#ff0000"
         @currentPage="currentPage"
         @selectionChange="currentSelection"
         @rowClick="rowClick">

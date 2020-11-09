@@ -6,6 +6,10 @@
       :data="tableData"
       style="width: 100%"
       :header-row-style="{height: tableHeaderHeight + 'px'}"
+      :header-cell-style="{
+        backgroundColor: headerBackground,
+        color: headerFontColor
+      }"
       @row-click="rowClick"
       @row-contextmenu="clickRight"
       @selection-change="handleSelectionChange">
@@ -107,6 +111,14 @@
         type: Boolean,
         default: false
       }, // 只有一个页面时是否隐藏分页器
+      headerBackground: {
+        type: String,
+        default: '#ffffff'
+      }, // 设置表头背景颜色
+      headerFontColor: {
+        type: String,
+        default: '#909399'
+      } // 设置表头字体颜色
     },
 
     data() {
@@ -208,6 +220,7 @@
 
         return _dom
       },
+
       /*
       * 暴露出的静态方法 用于表格有复选框的时候 可以清空复选空与设置默认选中状态
       * @static method
@@ -235,6 +248,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .container /deep/ .el-table th >.cell {
+    padding-left: 14px;
+    width: calc(100% - 4px);
+  }
+
   .container /deep/ .el-table__header-wrapper,
   .container /deep/ .el-table__header-wrapper thead th,
   .container /deep/ .el-table__header-wrapper thead th .cell {

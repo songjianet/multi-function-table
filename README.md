@@ -50,6 +50,41 @@ new Vue({
 </script>
 ```
 
+### 表头背景颜色与字体颜色
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    header-background="#000000"
+    header-font-color="#ff0000">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
 ### 基础表格
 
 基础的表格展示用法。
