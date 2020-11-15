@@ -24,7 +24,8 @@
         :prop="item.prop"
         :label="item.label"
         :sortable="item.options ? (item.options.type === 'sort') : false"
-        :render-header="setHeader">
+        :render-header="setHeader"
+        :width="item.width">
         <!--   普通插槽   -->
         <template slot-scope="scope" >
           <slot :name="item.prop" :row="scope.row" :$index="scope.$index">

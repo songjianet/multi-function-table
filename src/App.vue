@@ -45,8 +45,8 @@
       }
     },
     {prop: 'name', label: '名称'},
-    {prop: 'status', label: '状态'},
-    {prop: 'type', label: '类型',},
+    {prop: 'status', label: '状态', width: 100},
+    {prop: 'type', label: '类型', width: 100},
     {prop: 'iso', label: '镜像'},
     {prop: 'configure', label: '配置'},
     {prop: 'network', label: '网络'},

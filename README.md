@@ -85,6 +85,18 @@ new Vue({
 </script>
 ```
 
+### 设置列宽度
+
+在表头的配置相中增加`width`对象，用于设置列的宽度。
+
+```ecmascript6
+tableHeaders: [
+  { prop: 'name', label: '姓名', width: 100 },
+  { prop: 'mobile', label: '手机号' },
+  { prop: 'sex', label: '性别' }
+]
+```
+
 ### 基础表格
 
 基础的表格展示用法。
