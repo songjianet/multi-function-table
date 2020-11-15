@@ -36,7 +36,7 @@
     </el-table>
 
     <!--  分页  -->
-    <div v-if="isPage" class="pagination-container">
+    <div v-if="isPage" class="pagination-container" style="display: flex;" :style="setPagePositionStyle()">
       <el-pagination
         :layout="pageLayout"
         :total="total"
@@ -104,6 +104,10 @@
         type: Array,
         default: () => { return [5, 10, 25, 50, 100] }
       }, // 可更改的分页大小
+      pagePosition: {
+        type: String,
+        default: 'center'
+      },
       pageLayout: {
         type: String,
         default: () => { return 'prev, pager, next' }
@@ -222,7 +226,7 @@
         return _dom
       },
 
-      /*
+      /**
       * 暴露出的静态方法 用于表格有复选框的时候 可以清空复选空与设置默认选中状态
       * @static method
       * @param {Array} rows 可选参数 传入默认选中行的数据对象传入一个数组 如果不传走清空逻辑
@@ -230,15 +234,29 @@
       toggleSelection(rows) {
         if (rows) {
           rows.forEach(row => {
-            this.$refs.multipleTable.toggleRowSelection(row);
-          });
+            this.$refs.multipleTable.toggleRowSelection(row)
+          })
         } else {
-          this.$refs.multipleTable.clearSelection();
+          this.$refs.multipleTable.clearSelection()
         }
       },
 
       handleSelectionChange(val) {
         this.$emit('selectionChange', val)
+      },
+
+      setPagePositionStyle() {
+        let temp = ''
+
+        if (this.pagePosition === 'left') {
+          temp = 'flex-start'
+        } else if (this.pagePosition === 'center') {
+          temp = 'center'
+        } else if (this.pagePosition === 'right') {
+          temp = 'flex-end'
+        }
+
+        return { justifyContent: temp }
       }
     },
 

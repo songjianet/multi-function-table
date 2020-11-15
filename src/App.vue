@@ -16,6 +16,7 @@
         :total="9"
         :hide-on-single-page="false"
         :is-checkbox="true"
+        page-position="right"
         header-background="#000000"
         header-font-color="#ff0000"
         @currentPage="currentPage"

@@ -383,6 +383,24 @@ fn中的row参数为当前选中行的数据
 </script>
 ```
 
+### 分页器位置
+
+通过`page-position`参数设置分页器相对于表格的位置，提供`left`、`center`和`right`三个选项，默认为`center`。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="10"
+    page-position="right"
+    page-layout="prev, pager, next">
+  </MultiFunctionTable>
+</template>
+```
+
 ### 事件
 
 |事件名|说明|参数
