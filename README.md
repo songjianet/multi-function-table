@@ -401,6 +401,44 @@ fn中的row参数为当前选中行的数据
 </template>
 ```
 
+### 分页器背景
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="10"
+    :page-background="true"
+    page-layout="prev, pager, next">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
 ### 事件
 
 |事件名|说明|参数

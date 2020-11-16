@@ -38,6 +38,7 @@
     <!--  分页  -->
     <div v-if="isPage" class="pagination-container" style="display: flex;" :style="setPagePositionStyle()">
       <el-pagination
+        :background="pageBackground"
         :layout="pageLayout"
         :total="total"
         :hide-on-single-page="hideOnSinglePage"
@@ -110,8 +111,12 @@
       },
       pageLayout: {
         type: String,
-        default: () => { return 'prev, pager, next' }
+        default: () => { return 'prev, pager, next, sizes, jumper' }
       }, // 分页模板
+      pageBackground: {
+        type: Boolean,
+        default: true
+      }, // 分页器背景
       hideOnSinglePage: {
         type: Boolean,
         default: false

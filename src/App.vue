@@ -13,6 +13,7 @@
         :table-headers="tableHeaders"
         :table-row-right-click-options="rightClickOptions"
         :is-page="true"
+        :page-background="true"
         :total="9"
         :hide-on-single-page="false"
         :is-checkbox="true"
