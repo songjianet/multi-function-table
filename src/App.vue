@@ -12,6 +12,8 @@
         :table-data="tableData"
         :table-headers="tableHeaders"
         :table-row-right-click-options="rightClickOptions"
+        body-color="green"
+        stripe-background="red"
         :is-page="true"
         :page-background="true"
         :total="9"

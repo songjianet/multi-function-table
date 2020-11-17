@@ -85,6 +85,80 @@ new Vue({
 </script>
 ```
 
+### 表头中字体颜色
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    body-color="green"
+    header-background="#000000"
+    header-font-color="#ff0000">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 斑马纹
+
+- 斑马纹默认为开启状态，可通过`isStripe`这个字段的布尔值进行设置，默认为`true`开启状态。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    stripe-background="red"
+    header-background="#000000"
+    header-font-color="#ff0000">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
 ### 设置列宽度
 
 在表头的配置相中增加`width`对象，用于设置列的宽度。

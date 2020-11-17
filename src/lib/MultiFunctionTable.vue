@@ -3,6 +3,7 @@
     <!--  表格  -->
     <el-table
       ref="multipleTable"
+      :stripe="isStripe"
       :data="tableData"
       style="width: 100%"
       :header-row-style="{height: tableHeaderHeight + 'px'}"
@@ -10,6 +11,8 @@
         backgroundColor: headerBackground,
         color: headerFontColor
       }"
+      :cell-style="cellStyle"
+      :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
       @row-contextmenu="clickRight"
       @selection-change="handleSelectionChange">
@@ -81,13 +84,25 @@
         type: String | Number,
         default: 50
       }, // 表头高度
+      isStripe: {
+        type: Boolean,
+        default: true
+      }, // 是否为斑马纹表格
+      stripeBackground: {
+        type: String,
+        default: '#fafafa'
+      }, // 斑马纹表格背景颜色
+      bodyColor: {
+        type: String,
+        default: '#000000'
+      },
       isCheckbox: {
         type: Boolean,
         default: false
       }, // 启用表格多选
       isPage: {
         type: Boolean,
-        default: true
+        default: false
       }, // 是否启用表格分页
       page: {
         type: Number,
@@ -262,6 +277,14 @@
         }
 
         return { justifyContent: temp }
+      },
+
+      cellStyle({row, column, rowIndex, columnIndex}) {
+        let obj = {}
+        if (rowIndex % 2 !== 0) {
+          obj['background'] = this.stripeBackground
+        }
+        return obj
       }
     },
 
