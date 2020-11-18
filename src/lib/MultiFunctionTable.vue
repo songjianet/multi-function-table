@@ -45,7 +45,8 @@
         :layout="pageLayout"
         :total="total"
         :hide-on-single-page="hideOnSinglePage"
-        @current-change="currentPage">
+        @current-change="currentPage"
+        @size-change="_handleSizeChange">
       </el-pagination>
     </div>
 
@@ -285,6 +286,10 @@
           obj['background'] = this.stripeBackground
         }
         return obj
+      },
+
+      _handleSizeChange(val) {
+        this.$emit('sizeChange', val)
       }
     },
 

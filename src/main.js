@@ -7,7 +7,8 @@ import {
   Pagination,
   Dropdown,
   DropdownMenu,
-  DropdownItem
+  DropdownItem,
+  Popover
 } from 'element-ui'
 
 import './assets/style/iconfont.css'
@@ -19,6 +20,7 @@ Vue.use(Pagination)
 Vue.use(Dropdown)
 Vue.use(DropdownMenu)
 Vue.use(DropdownItem)
+Vue.use(Popover)
 
 new Vue({
   el: '#app',

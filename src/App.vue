@@ -24,13 +24,20 @@
         header-font-color="#ff0000"
         @currentPage="currentPage"
         @selectionChange="currentSelection"
-        @rowClick="rowClick">
+        @rowClick="rowClick"
+        @sizeChange="sizeChange">
         <template slot="id" slot-scope="scope">
           <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
         </template>
         <template slot="iso" slot-scope="scope">
-          <span class="icon iconfont iconcentos"></span>
-          <span>{{scope.row.iso}}</span>
+          <el-popover
+            placement="bottom"
+            title="标题"
+            width="200"
+            trigger="click"
+            content="这是一段内容,这是一段内容,这是一段内容,这是一段内容。">
+            <el-button slot="reference">click 激活</el-button>
+          </el-popover>
         </template>
       </MultiFunctionTable>
     </div>
@@ -60,7 +67,7 @@
       options: {
         type: 'sort'
       }
-    },
+    }
   ]
 
   const RIGHT_CLICK_OPTIONS = [
@@ -137,6 +144,9 @@
       },
       setCheckbox(rows) {
         this.$refs.table.toggleSelection([this.tableData[0]])
+      },
+      sizeChange(val) {
+        console.log(val)
       }
     },
     components: {

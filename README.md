@@ -475,6 +475,14 @@ fn中的row参数为当前选中行的数据
 </template>
 ```
 
+### 分页器`size`改变
+
+```vue
+<template>
+  <MultiFunctionTable @sizeChange="sizeChange"></MultiFunctionTable>
+</template>
+```
+
 ### 分页器背景
 
 ```vue
@@ -520,4 +528,5 @@ fn中的row参数为当前选中行的数据
 |rowClick|当某一行被点击时会触发该事件|```row, column, event```|
 |currentPage|当分页器的当前页发生变化时会触发该事件|```page```|
 |selectionChange|当多选框选中项发生变化时会触发该事件|```selection```|
+|sizeChange|当分页器中分页大小发生改变时会触发该事件|```size```|
 
