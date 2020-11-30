@@ -44,6 +44,8 @@
         :background="pageBackground"
         :layout="pageLayout"
         :total="total"
+        :page-sizes="pageSizes"
+        :page-size="pageSize"
         :hide-on-single-page="hideOnSinglePage"
         @current-change="currentPage"
         @size-change="_handleSizeChange">

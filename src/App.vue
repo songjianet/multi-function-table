@@ -19,6 +19,8 @@
         :total="9"
         :hide-on-single-page="false"
         :is-checkbox="true"
+        :page-size="5"
+        :page-sizes="[5, 10, 15, 20]"
         page-position="right"
         header-background="#000000"
         header-font-color="#ff0000"

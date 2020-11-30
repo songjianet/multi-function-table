@@ -301,7 +301,7 @@ fn中的row参数为当前选中行的数据
     :table-data="tableData"
     :table-headers="tableHeaders"
     :is-checkbox="true"
-    @currentSelection="currentSelection">
+    @selectionChange="selectionChange">
   </MultiFunctionTable>
 </template>
 <script>
@@ -325,7 +325,7 @@ fn中的row参数为当前选中行的数据
       }
     },
     methods: {
-      currentSelection(e) {
+      selectionChange(e) {
         console.log(e)
       },
       clearCheckbox() {
@@ -495,6 +495,45 @@ fn中的row参数为当前选中行的数据
     :page-size="10"
     :page-background="true"
     page-layout="prev, pager, next">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          name: '小明',
+          mobile: '133xxxx8976',
+          sex: '男'
+        }, {
+          name: '小红',
+          mobile: '173xxxx8976',
+          sex: '女'
+        }],
+        tableHeaders: [
+          { prop: 'name', label: '姓名' },
+          { prop: 'mobile', label: '手机号' },
+          { prop: 'sex', label: '性别' }
+        ]
+      }
+    }
+  }
+</script>
+```
+
+### 分页器大小设置
+
+分页器使用`page-sizes`参数进行设置，默认提供的值位`[5, 10, 25, 50, 100]`，同时，当启用分页器大小设置后，`page-size`参数应该设置为`page-sizes`中存在的值。
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders"
+    :total="tableData.length"
+    :page="1"
+    :page-size="5"
+    :page-sizes="[5, 10, 15, 20]">
   </MultiFunctionTable>
 </template>
 <script>
