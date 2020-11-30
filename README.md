@@ -533,7 +533,8 @@ fn中的row参数为当前选中行的数据
     :total="tableData.length"
     :page="1"
     :page-size="5"
-    :page-sizes="[5, 10, 15, 20]">
+    :page-sizes="[5, 10, 15, 20]"
+    @sizeChange="sizeChange">
   </MultiFunctionTable>
 </template>
 <script>
@@ -554,6 +555,11 @@ fn中的row参数为当前选中行的数据
           { prop: 'mobile', label: '手机号' },
           { prop: 'sex', label: '性别' }
         ]
+      }
+    },
+    methods: {
+      currentSelection(e) {
+        console.log(e)
       }
     }
   }
