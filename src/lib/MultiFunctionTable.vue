@@ -15,7 +15,8 @@
       :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
       @row-contextmenu="clickRight"
-      @selection-change="handleSelectionChange">
+      @selection-change="handleSelectionChange"
+      >
       <el-table-column
         v-if="isCheckbox"
         type="selection"
@@ -26,7 +27,7 @@
         :key="index"
         :prop="item.prop"
         :label="item.label"
-        :sortable="item.options ? (item.options.type === 'sort') : false"
+        :sortable="item.options ? !!item.options.map(i => i.type).includes('sort') : false"
         :render-header="setHeader"
         :width="item.width">
         <!--   普通插槽   -->
@@ -221,7 +222,7 @@
               dom = <span>{ item.label }</span>
             } else {
               // tableHeaders中存在表头配置项
-              dom = this._renderHeaderLabelIcon(item.options, column.label, column.property)
+              dom = this._renderHeaderLabelIcon(h, item.options, column.label, column.property)
             }
           }
         })
@@ -236,14 +237,55 @@
        * @param {String} prop 传入的表头prop
        * @return 处理后的DOM
        * */
-      _renderHeaderLabelIcon(options, label, prop) {
-        let _dom
+      _renderHeaderLabelIcon(h, options, label, prop) {
+        let _dom = []
 
-        if (options.type === 'sort') {
-          _dom =
-            <span class="sort">
-              { label }
-            </span>
+        if (options.length === 1) {
+          if (options[0].type === 'sort') {
+            _dom.push(
+              <span class="render-header">
+                { label }
+              </span>
+            )
+          }
+
+          if (options[0].type === 'popover') {
+            _dom.push(
+              h('span', {}, [
+                h('span', {}, ''),
+                h('el-popover', { props: { placement: 'top', width: '200', trigger: 'hover', content: options[0].props.content }}, [
+                  h('span', { slot: 'reference', class: 'font-normal', style: { cursor: 'pointer' }}, [
+                    h('span', label),
+                    h('i', { class: options[0].props.icon, style: { margin: '0 5px' } })
+                  ])
+                ])
+              ])
+            )
+          }
+        } else {
+          options.forEach(item => {
+            if (item.type === 'sort' && options.length < 1) {
+              _dom.push(
+                <span class="render-header">
+                { label }
+              </span>
+              )
+            }
+
+            if (item.type === 'popover') {
+              _dom.push(
+                h('span', {}, [
+                  h('span', {}, ''),
+                  h('el-popover', { props: { placement: 'top', width: '200', trigger: 'hover', content: item.props.content }}, [
+                    h('span', { slot: 'reference', class: 'font-normal', style: { cursor: 'pointer' }}, [
+                      h('span', label),
+                      h('i', { class: item.props.icon, style: { margin: '0 5px' } })
+                    ])
+                  ])
+                ])
+              )
+            }
+          })
         }
 
         return _dom
@@ -321,7 +363,7 @@
     }
   }
 
-  .sort {
+  .render-header {
     &:hover {
       cursor: pointer;
     }

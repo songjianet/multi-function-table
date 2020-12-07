@@ -52,24 +52,30 @@
   const HEADERS = [
     {
       prop: 'id',
-      label: 'ID',
-      options: {
-        type: 'sort'
-      }
+      label: 'ID'
     },
     {prop: 'name', label: '名称'},
     {prop: 'status', label: '状态', width: 100},
     {prop: 'type', label: '类型', width: 100},
     {prop: 'iso', label: '镜像'},
     {prop: 'configure', label: '配置'},
-    {prop: 'network', label: '网络'},
     {
-      prop: 'createTime',
-      label: '创建时间',
-      options: {
-        type: 'sort'
-      }
-    }
+      prop: 'network',
+      label: '网络',
+      options: [
+        {
+          type: 'popover',
+          props: {
+            icon: 'el-icon-edit',
+            content: 'fadf'
+          }
+        },
+        {
+          type: 'sort'
+        }
+      ]
+    },
+    {prop: 'createTime', label: '创建时间'}
   ]
 
   const RIGHT_CLICK_OPTIONS = [

@@ -85,6 +85,41 @@ new Vue({
 </script>
 ```
 
+### 表头增加`popover`
+
+```vue
+<template>
+  <MultiFunctionTable
+    :table-data="tableData"
+    :table-headers="tableHeaders">
+  </MultiFunctionTable>
+</template>
+<script>
+  export default {
+    data() {
+      return {
+        tableData: [{
+          sex: '男'
+        }],
+        tableHeaders: [
+          {
+            prop: 'sex',
+            label: '性别',
+            options: [{
+              type: 'popover',
+              props: {
+                icon: 'el-icon-edit',
+                content: 'fadf'
+              }
+            }]
+          }
+        ]
+      }
+    }
+  }
+</script>
+```
+
 ### 表头中字体颜色
 
 ```vue
@@ -231,7 +266,7 @@ tableHeaders: [
         tableHeaders: [
           { prop: 'name', label: '姓名' },
           { prop: 'mobile', label: '手机号' },
-          { prop: 'sex', label: '性别', options: { type: 'sort' } }
+          { prop: 'sex', label: '性别', options: [{ type: 'sort' }] }
         ]
       }
     }
