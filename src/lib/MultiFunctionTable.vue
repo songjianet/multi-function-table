@@ -48,6 +48,7 @@
         :page-sizes="pageSizes"
         :page-size="pageSize"
         :hide-on-single-page="hideOnSinglePage"
+        :current-page.sync="page"
         @current-change="currentPage"
         @size-change="_handleSizeChange">
       </el-pagination>
