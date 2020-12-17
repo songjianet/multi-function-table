@@ -48,7 +48,7 @@
         :page-sizes="pageSizes"
         :page-size="pageSize"
         :hide-on-single-page="hideOnSinglePage"
-        :current-page.sync="page"
+        :current-page.sync="privatePage"
         @current-change="currentPage"
         @size-change="_handleSizeChange">
       </el-pagination>
@@ -155,11 +155,20 @@
       return {
         tableBodyClick: {}, // 点击表格中行的坐标
         tableHeadersSortActive: '',
-        tableHeadersSortStatus: ''
+        tableHeadersSortStatus: '',
+        privatePage: 1
+      }
+    },
+
+    watch: {
+      page: function () {
+        this.privatePage = this.page
       }
     },
 
     mounted() {
+      this.privatePage = this.page
+
       if (!window.rightClickOptionsList) {
         window.rightClickOptionsList = () => {
           const DOM = document.getElementsByClassName('options-list')
