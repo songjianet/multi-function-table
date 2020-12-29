@@ -1,6 +1,6 @@
 ## multi-function-table
 
-> 基于`Element UI`进行二次开发的多功能表格组件
+> 基于`ElementUI`进行二次开发的多功能表格组件
 
 ---
 
@@ -85,7 +85,7 @@ new Vue({
 |:----|:----|:----|:----|:----|
 |prop|对应`table-data`中需要显示的字段。|String|-|-|
 |label|字段需要在表头中展示的名称。|String|-|-|
-|options|表头是否支持操作选项。|Array|'popover' / 'sort'|-|
+|options|表头是否支持操作选项。目前多功能表头只支持信息提示'popover'、排序'sort'|Array|'popover' / 'sort'|-|
 
 ### 方法说明
 
@@ -95,3 +95,116 @@ new Vue({
 |currentPage|当分页器的当前页发生变化时会触发该事件。|page|page: 当前选中的页码。|
 |selectionChange|当多选框选中项发生变化时会触发该事件。|selection|selection: 勾选的下标数组。|
 |sizeChange|当分页器中分页大小发生改变时会触发该事件。|size|size: 选中的分页大小。|
+
+### 多功能表格使用示例
+
+#### 基础表格
+
+基础表格展示
+
+```vue
+<template>
+  <multi-function-table
+    :table-data="tableData"
+    :table-headers="tableHeaders" />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      tableData: [
+        { name: '小明', mobile: '133xxxx8976', sex: '男'},
+        { name: '小红', mobile: '173xxxx8976', sex: '女'}
+      ],
+      tableHeaders: [
+        { prop: 'name', label: '姓名' },
+        { prop: 'mobile', label: '手机号' },
+        { prop: 'sex', label: '性别' }
+      ]
+    }
+  }
+}
+</script>
+```
+
+#### 多功能表头
+
+多功能表头允许使用提示信息和排序功能。多功能表头只需要在`table-header`参数中进行配置即可。
+
+```vue
+<template>
+  <multi-function-table
+    :table-data="tableData"
+    :table-headers="tableHeaders" />
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      tableData: [
+        { name: '小明', mobile: '133xxxx8976', sex: '男'},
+        { name: '小红', mobile: '173xxxx8976', sex: '女'}
+      ],
+      tableHeaders: [
+        { prop: 'name', label: '姓名' },
+        { prop: 'mobile', label: '手机号' },
+        {
+          prop: 'sex',
+          label: '性别',
+          options: [
+            {
+              type: 'popover',
+              props: {
+                icon: 'el-icon-edit',
+                content: '提示内容'
+              }
+            },
+            {
+              type: 'sort'
+            }
+          ]
+        }
+      ]
+    }
+  }
+}
+</script>
+```
+
+
+#### 自定义模板
+
+自定义列的显示内容，可以搭配其他`ElementUI`组件一起使用。通常自定义列需要使用插槽进行实现。
+
+```vue
+<template>
+  <multi-function-table
+    :table-data="tableData"
+    :table-headers="tableHeaders">
+    <template slot="options" slot-scope="scope">
+      <el-button>按钮</el-button>
+    </template>
+  </multi-function-table>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      tableData: [
+        { name: '小明', mobile: '133xxxx8976', sex: '男'},
+        { name: '小红', mobile: '173xxxx8976', sex: '女'}
+      ],
+      tableHeaders: [
+        { prop: 'name', label: '姓名' },
+        { prop: 'mobile', label: '手机号' },
+        { prop: 'sex', label: '性别' },
+        { prop: 'options', label: '操作' }
+      ]
+    }
+  }
+}
+</script>
+```

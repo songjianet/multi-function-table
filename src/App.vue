@@ -8,23 +8,8 @@
     <el-button type="primary" @click="setCheckbox">设置默认复选框</el-button>
     <div>
       <MultiFunctionTable
-        ref="table"
         :table-data="tableData"
-        :table-headers="tableHeaders"
-        :table-row-right-click-options="rightClickOptions"
-        :is-page="true"
-        :page-background="false"
-        :total="tableData.length"
-        :hide-on-single-page="false"
-        :is-checkbox="true"
-        :page="1"
-        :page-size="5"
-        :page-sizes="[5, 10, 15, 20]"
-        page-position="right"
-        @currentPage="currentPage"
-        @selectionChange="currentSelection"
-        @rowClick="rowClick"
-        @sizeChange="sizeChange">
+        :table-headers="tableHeaders">
         <template slot="id" slot-scope="scope">
           <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
         </template>
