@@ -95,11 +95,11 @@
       }, // 是否为斑马纹表格
       stripeBackground: {
         type: String,
-        default: '#fafafa'
+        default: '#f7f8fa'
       }, // 斑马纹表格背景颜色
       bodyColor: {
         type: String,
-        default: '#000000'
+        default: '#001741'
       },
       isCheckbox: {
         type: Boolean,
@@ -115,7 +115,7 @@
       }, // 当前页
       total: {
         type: Number,
-        default: undefined
+        default: 0
       }, // 总条数
       pageSize: {
         type: Number,
@@ -143,7 +143,7 @@
       }, // 只有一个页面时是否隐藏分页器
       headerBackground: {
         type: String,
-        default: '#ffffff'
+        default: '#f2f5fa'
       }, // 设置表头背景颜色
       headerFontColor: {
         type: String,

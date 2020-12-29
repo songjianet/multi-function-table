@@ -12,18 +12,15 @@
         :table-data="tableData"
         :table-headers="tableHeaders"
         :table-row-right-click-options="rightClickOptions"
-        body-color="green"
-        stripe-background="red"
         :is-page="true"
-        :page-background="true"
-        :total="9"
+        :page-background="false"
+        :total="tableData.length"
         :hide-on-single-page="false"
         :is-checkbox="true"
+        :page="1"
         :page-size="5"
         :page-sizes="[5, 10, 15, 20]"
         page-position="right"
-        header-background="#000000"
-        header-font-color="#ff0000"
         @currentPage="currentPage"
         @selectionChange="currentSelection"
         @rowClick="rowClick"
@@ -106,7 +103,7 @@
       }
     },
     mounted() {
-      for (let i = 0; i < 2; i++) {
+      for (let i = 0; i < 10; i++) {
         this.tableData.push({
           id: 'i-djpru7t9' + i,
           name: 'testDEMO' + i,
