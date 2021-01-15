@@ -9,7 +9,8 @@
     <div>
       <MultiFunctionTable
         :table-data="tableData"
-        :table-headers="tableHeaders">
+        :table-headers="tableHeaders"
+        table-height="200px">
         <template slot="id" slot-scope="scope">
           <span class="mft-url-style" @click="detailPage(scope.row.id)">{{scope.row.id}}</span>
         </template>

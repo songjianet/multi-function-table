@@ -11,12 +11,12 @@
         backgroundColor: headerBackground,
         color: headerFontColor
       }"
+      :height="tableHeight"
       :cell-style="cellStyle"
       :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
       @row-contextmenu="clickRight"
-      @selection-change="handleSelectionChange"
-      >
+      @selection-change="handleSelectionChange">
       <el-table-column
         v-if="isCheckbox"
         type="selection"
@@ -77,6 +77,10 @@
         type: Array,
         default: () => { return [] }
       }, // 表头
+      tableHeight: {
+        type: String,
+        default: 'false'
+      },
       tableData: {
         type: Array,
         default: () => { return [] }
