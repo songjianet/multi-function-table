@@ -12,6 +12,7 @@
         color: headerFontColor
       }"
       :height="tableHeight"
+      :max-height="tableMaxHeight"
       :cell-style="cellStyle"
       :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
@@ -78,6 +79,10 @@
         default: () => { return [] }
       }, // 表头
       tableHeight: {
+        type: String,
+        default: 'false'
+      },
+      tableMaxHeight: {
         type: String,
         default: 'false'
       },
@@ -171,6 +176,8 @@
     },
 
     mounted() {
+      console.log(this.tableMaxHeight)
+
       this.privatePage = this.page
 
       if (!window.rightClickOptionsList) {
