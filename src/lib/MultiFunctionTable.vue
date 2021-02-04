@@ -13,8 +13,6 @@
       }"
       :height="tableHeight"
       :max-height="tableMaxHeight"
-      :min-width="tableMinWidth"
-      :width="tableWidth"
       :cell-style="cellStyle"
       :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
@@ -32,7 +30,8 @@
         :label="item.label"
         :sortable="item.options ? !!item.options.map(i => i.type).includes('sort') : false"
         :render-header="setHeader"
-        :width="item.width">
+        :width="item.width"
+        :min-width="item.minWidth">
         <!--   普通插槽   -->
         <template slot-scope="scope" >
           <slot :name="item.prop" :row="scope.row" :$index="scope.$index">
@@ -85,14 +84,6 @@
         default: 'false'
       },
       tableMaxHeight: {
-        type: String,
-        default: 'false'
-      },
-      tableMinWidth: {
-        type: String,
-        default: 'false'
-      },
-      tableWidth: {
         type: String,
         default: 'false'
       },

@@ -63,8 +63,6 @@ new Vue({
 |table-headers|表头以及带有多操作选项的配置。多选操作包含提示文字、排序。|Array|prop / label / options|[]|
 |table-height|是否启用表格高度以固定表头。|String|'200px'|'false'|
 |table-max-height|是否启用表格最大高度以固定表头。|String|'200px'|'false'|
-|table-width|是否启用表格宽度。|String|'200px'|'false'|
-|table-min-width|是否启用表格最小宽度。|String|'200px'|'false'|
 |table-data|表格中的数据。|Array|-|[]|
 |table-header-height|表头的高度。|String / Number|-|50|
 |header-background|表头背景颜色。|String|-|'#f2f5fa'|
@@ -89,6 +87,8 @@ new Vue({
 |:----|:----|:----|:----|:----|
 |prop|对应`table-data`中需要显示的字段。|String|-|-|
 |label|字段需要在表头中展示的名称。|String|-|-|
+|width|列宽度。|Number|-|-|
+|minWidth|最小列宽度。|Number|-|-|
 |options|表头是否支持操作选项。目前多功能表头只支持信息提示'popover'、排序'sort'|Array|'popover' / 'sort'|-|
 
 ### 方法说明
