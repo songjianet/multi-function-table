@@ -63,6 +63,8 @@ new Vue({
 |table-headers|表头以及带有多操作选项的配置。多选操作包含提示文字、排序。|Array|prop / label / options|[]|
 |table-height|是否启用表格高度以固定表头。|String|'200px'|'false'|
 |table-max-height|是否启用表格最大高度以固定表头。|String|'200px'|'false'|
+|table-width|是否启用表格宽度。|String|'200px'|'false'|
+|table-min-width|是否启用表格最小宽度。|String|'200px'|'false'|
 |table-data|表格中的数据。|Array|-|[]|
 |table-header-height|表头的高度。|String / Number|-|50|
 |header-background|表头背景颜色。|String|-|'#f2f5fa'|

@@ -13,6 +13,8 @@
       }"
       :height="tableHeight"
       :max-height="tableMaxHeight"
+      :min-width="tableMinWidth"
+      :width="tableWidth"
       :cell-style="cellStyle"
       :row-style="() => {return {color: this.bodyColor}}"
       @row-click="rowClick"
@@ -83,6 +85,14 @@
         default: 'false'
       },
       tableMaxHeight: {
+        type: String,
+        default: 'false'
+      },
+      tableMinWidth: {
+        type: String,
+        default: 'false'
+      },
+      tableWidth: {
         type: String,
         default: 'false'
       },
